@@ -4,8 +4,8 @@ const s3 = new AWS.S3({
   endpoint: 'https://s3.filebase.com', // Filebase 专用端点
   region: 'us-east-1',
   credentials: {
-    accessKeyId: '55137E4DDF91EFA9BAC5',
-    secretAccessKey: 'R27gD6rUjJKggEeg1LPG9EmuKKtt5jQfd6ecXyoi',
+    accessKeyId: '',
+    secretAccessKey: '',
   },
   httpOptions: {
     timeout: 50000,              // 最长 50 秒
@@ -19,8 +19,8 @@ const s3 = new AWS.S3({
 // const s3 = new AWS.S3({
 //   endpoint: 'https://s3.filebase.com', // Filebase 专用端点
 //   region: 'us-east-1',
-//   accessKeyId: '55137E4DDF91EFA9BAC5',
-//   secretAccessKey: 'R27gD6rUjJKggEeg1LPG9EmuKKtt5jQfd6ecXyoi',
+//   accessKeyId: '',
+//   secretAccessKey: '',
 //   signatureVersion: 'v4',
 // });
 
