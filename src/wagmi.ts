@@ -1,0 +1,30 @@
+import { http, cookieStorage, createConfig, createStorage } from 'wagmi'
+import { mainnet, sepolia, storyAeneid } from 'wagmi/chains'
+import { coinbaseWallet, injected, walletConnect } from 'wagmi/connectors'
+
+//新增 1
+import { redmansionChain } from './constants/chains'
+
+export function getConfig() {
+  return createConfig({
+    chains: [redmansionChain], //新增 2
+    connectors: [
+      injected(),
+      coinbaseWallet(),
+      walletConnect({ projectId: process.env.NEXT_PUBLIC_WC_PROJECT_ID || '' }),
+    ],
+    storage: createStorage({
+      storage: cookieStorage,
+    }),
+    ssr: true,
+    transports: {
+      [redmansionChain.id]: http(process.env.NEXT_PUBLIC_RPC || ''), // 新增 3 ✅ transport 也要加上
+    },
+  })
+}
+
+declare module 'wagmi' {
+  interface Register {
+    config: ReturnType<typeof getConfig>
+  }
+}
