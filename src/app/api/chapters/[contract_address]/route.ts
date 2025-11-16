@@ -2,7 +2,82 @@ import { NextRequest, NextResponse } from 'next/server';
 import { query } from '@/lib/api/db';
 import { isValidContractAddress } from '@/lib/api/web3';
 
-// GET /api/chapters/:contract_address
+/**
+ * @swagger
+ * /api/chapters/{contract_address}:
+ *   get:
+ *     tags: [chapters]
+ *     summary: 获取章节列表
+ *     description: 获取指定小说的所有章节列表
+ *     parameters:
+ *       - in: path
+ *         name: contract_address
+ *         required: true
+ *         schema:
+ *           type: string
+ *           pattern: '^0x[a-fA-F0-9]{40}$'
+ *         description: 小说合约地址
+ *     responses:
+ *       200:
+ *         description: 成功返回章节列表
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     contract_address:
+ *                       type: string
+ *                     chapters:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           chapter_number:
+ *                             type: integer
+ *                           title:
+ *                             type: string
+ *                           price:
+ *                             type: string
+ *                             format: bigint
+ *                           is_paid:
+ *                             type: boolean
+ *                           word_count:
+ *                             type: integer
+ *                           created_at:
+ *                             type: string
+ *                             format: date-time
+ *                           updated_at:
+ *                             type: string
+ *                             format: date-time
+ *                     count:
+ *                       type: integer
+ *       400:
+ *         description: 无效的合约地址格式
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *       500:
+ *         description: 服务器错误
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                 message:
+ *                   type: string
+ */
 export async function GET(
   request: NextRequest,
   { params }: { params: { contract_address: string } }

@@ -2,7 +2,113 @@ import { NextRequest, NextResponse } from 'next/server';
 import { query, queryOne } from '@/lib/api/db';
 import { isValidContractAddress } from '@/lib/api/web3';
 
-// GET /api/novels/:contract_address
+/**
+ * @swagger
+ * /api/novels/{contract_address}:
+ *   get:
+ *     tags: [novels]
+ *     summary: 获取小说详情
+ *     description: 根据合约地址获取小说的详细信息
+ *     parameters:
+ *       - in: path
+ *         name: contract_address
+ *         required: true
+ *         schema:
+ *           type: string
+ *           pattern: '^0x[a-fA-F0-9]{40}$'
+ *         description: 小说合约地址
+ *     responses:
+ *       200:
+ *         description: 成功返回小说详情
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                     contract_address:
+ *                       type: string
+ *                     title:
+ *                       type: string
+ *                     author_address:
+ *                       type: string
+ *                     author_name:
+ *                       type: string
+ *                     description:
+ *                       type: string
+ *                     cover_cid:
+ *                       type: string
+ *                     synopsis_cid:
+ *                       type: string
+ *                     metadata_cid:
+ *                       type: string
+ *                     chapter_count:
+ *                       type: integer
+ *                     buid:
+ *                       type: string
+ *                     puid:
+ *                       type: string
+ *                     ruid:
+ *                       type: string
+ *                     luid:
+ *                       type: string
+ *                     price:
+ *                       type: string
+ *                       format: bigint
+ *                     lock_chapter:
+ *                       type: integer
+ *                     mature:
+ *                       type: boolean
+ *                     completed:
+ *                       type: boolean
+ *                     created_at:
+ *                       type: string
+ *                       format: date-time
+ *                     updated_at:
+ *                       type: string
+ *                       format: date-time
+ *                     synced_at:
+ *                       type: string
+ *                       format: date-time
+ *       400:
+ *         description: 无效的合约地址格式
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *       404:
+ *         description: 小说未找到
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                 message:
+ *                   type: string
+ *       500:
+ *         description: 服务器错误
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                 message:
+ *                   type: string
+ */
 export async function GET(
   request: NextRequest,
   { params }: { params: { contract_address: string } }

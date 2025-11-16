@@ -1,6 +1,69 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-// GET /api/ipfs/:cid
+/**
+ * @swagger
+ * /api/ipfs/{cid}:
+ *   get:
+ *     tags: [ipfs]
+ *     summary: 验证IPFS CID
+ *     description: 验证指定的IPFS CID是否存在并可访问
+ *     parameters:
+ *       - in: path
+ *         name: cid
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: IPFS内容标识符（CID）
+ *     responses:
+ *       200:
+ *         description: CID验证结果
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     cid:
+ *                       type: string
+ *                     exists:
+ *                       type: boolean
+ *                     url:
+ *                       type: string
+ *                       nullable: true
+ *       404:
+ *         description: CID不存在
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     cid:
+ *                       type: string
+ *                     exists:
+ *                       type: boolean
+ *                       example: false
+ *       500:
+ *         description: 验证失败
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                 message:
+ *                   type: string
+ */
 export async function GET(
   request: NextRequest,
   { params }: { params: { cid: string } }

@@ -22,7 +22,7 @@ POST /api/novels/sync/:contract_address
 
 **示例**:
 ```bash
-curl -X POST http://localhost:9000/api/novels/sync/0x1234567890123456789012345678901234567890
+curl -X POST http://localhost:9000/api/novels/sync/0xc185d7ecB31ab5752A3C74C3E973A363228B02bb
 ```
 
 **响应**:
@@ -43,12 +43,12 @@ curl -X POST http://localhost:9000/api/novels/sync/0x123456789012345678901234567
 
 #### 获取小说详情
 ```http
-GET /api/novels/:contract_address
+GET http://localhost:9000/api/novels/0xc185d7ecB31ab5752A3C74C3E973A363228B02bb
 ```
 
 #### 获取小说列表
 ```http
-GET /api/novels?page=1&limit=20&author=0x...
+GET http://localhost:9000/api/novels?page=1&limit=20&author=0x2d44f6abc0ad19ba5ea0cac0595f2f7410c80106
 ```
 
 ### IPFS相关

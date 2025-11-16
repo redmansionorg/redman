@@ -2,7 +2,76 @@ import { NextRequest, NextResponse } from 'next/server';
 import { query, queryOne } from '@/lib/api/db';
 import { getNovelContract, fetchFromIPFS, isValidContractAddress } from '@/lib/api/web3';
 
-// POST /api/novels/sync/:contract_address
+/**
+ * @swagger
+ * /api/novels/sync/{contract_address}:
+ *   post:
+ *     tags: [novels]
+ *     summary: 同步小说元数据
+ *     description: 从链上同步指定合约地址的小说元数据和章节信息到数据库
+ *     parameters:
+ *       - in: path
+ *         name: contract_address
+ *         required: true
+ *         schema:
+ *           type: string
+ *           pattern: '^0x[a-fA-F0-9]{40}$'
+ *         description: 小说合约地址
+ *     responses:
+ *       200:
+ *         description: 同步成功
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: Novel synced successfully
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     contract_address:
+ *                       type: string
+ *                     novel_id:
+ *                       type: integer
+ *                     title:
+ *                       type: string
+ *                     chapter_count:
+ *                       type: integer
+ *                     chapters_synced:
+ *                       type: integer
+ *                     synced_at:
+ *                       type: string
+ *                       format: date-time
+ *       400:
+ *         description: 无效的合约地址格式
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                 message:
+ *                   type: string
+ *       500:
+ *         description: 同步失败
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                 message:
+ *                   type: string
+ *                 contract_address:
+ *                   type: string
+ */
 export async function POST(
   request: NextRequest,
   { params }: { params: { contract_address: string } }
