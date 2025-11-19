@@ -171,7 +171,7 @@ export async function GET(
     }
 
     // 2. 如果是付费章节，验证用户购买权限。此方法为临时方案，后续可改为X402支付协议功能
-    if (chapter.is_paid) {
+    if (chapter.is_paid || chapter.price > 0) {
       if (!address || !isValidContractAddress(address)) {
         return NextResponse.json(
           {
